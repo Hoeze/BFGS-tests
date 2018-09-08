@@ -1,5 +1,7 @@
 Some examples for testing tensorflow-probability's BFGS algorithm.
 
+Please note that the simulated data is stored in `example.h5` and you will have to install `xarray` in order to load it.
+
 Short overview:
 - **bfgs\_test\_script\_nonterminating.py:** <br>
   Initialize with simulated values; does not terminate
