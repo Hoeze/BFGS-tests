@@ -93,7 +93,7 @@ loss = loss_fn(X, design_loc, design_scale, a, b)
 
 scipy_bfgs = tf.contrib.opt.ScipyOptimizerInterface(
     loss,
-    method='L-BFGS-B',
+    method='BFGS',
 )
 
 

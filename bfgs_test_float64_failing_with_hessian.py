@@ -50,11 +50,11 @@ def clip_param(param, name):
 data = xr.open_dataset("example.h5", group="data")
 params = xr.open_dataset("example.h5", group="params")
 
-X = tf.convert_to_tensor(data.X.values, dtype="float32", name="X")
-design_loc = tf.convert_to_tensor(data.design_loc.values, dtype="float32", name="design_loc")
-design_scale = tf.convert_to_tensor(data.design_scale.values, dtype="float32", name="design_scale")
-init_a = tf.convert_to_tensor(params.a.values * 1.5, dtype="float32", name="a")
-init_b = tf.convert_to_tensor(params.b.values * 1.5, dtype="float32", name="b")
+X = tf.convert_to_tensor(data.X.values, dtype="float64", name="X")
+design_loc = tf.convert_to_tensor(data.design_loc.values, dtype="float64", name="design_loc")
+design_scale = tf.convert_to_tensor(data.design_scale.values, dtype="float64", name="design_scale")
+init_a = tf.convert_to_tensor(params.a.values * 1.5, dtype="float64", name="a")
+init_b = tf.convert_to_tensor(params.b.values * 1.5, dtype="float64", name="b")
 
 param_vec = tf.Variable(tf.concat([init_a, init_b], axis=0), name="param_vec")
 
@@ -107,8 +107,8 @@ def value_and_grad_fn(param_vec):
 
 
 hessian = tf.hessians(loss, param_vec)[0]
-# tfp_bfgs = tfp.optimizer.bfgs_minimize(value_and_grad_fn, param_vec, initial_inverse_hessian_estimate=hessian)
-tfp_bfgs = tfp.optimizer.bfgs_minimize(value_and_grad_fn, param_vec)
+tfp_bfgs = tfp.optimizer.bfgs_minimize(value_and_grad_fn, param_vec, initial_inverse_hessian_estimate=hessian)
+# tfp_bfgs = tfp.optimizer.bfgs_minimize(value_and_grad_fn, param_vec)
 
 # ### Init session ###
 init_op = tf.global_variables_initializer()
